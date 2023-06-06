@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         LSS-List Navigation
 // @namespace    https://www.leitstellenspiel.de/toplist
-// @version      1.0
+// @version      1.1
 // @description  Add custom page navigation to List websites in LSS
 // @author       MissSobol
 // @match        https://www.leitstellenspiel.de/toplist*
@@ -130,18 +130,18 @@
     const currentPage = window.location.href;
     const paginationElement = document.querySelector('.pagination.pagination');
     if (paginationElement) {
-        console.log('Seitennavigationselement gefunden:', paginationElement);
+       // console.log('Seitennavigationselement gefunden:', paginationElement);
 
         // Finde den Button mit den 3 Punkten basierend auf dem Textinhalt
         const dotsButtons = paginationElement.querySelectorAll('li');
         dotsButtons.forEach(function(dotsButton) {
             const span = dotsButton.querySelector('span');
             if (span && span.textContent === '…') {
-                console.log('Button mit den 3 Punkten gefunden:', dotsButton);
+             //   console.log('Button mit den 3 Punkten gefunden:', dotsButton);
 
                 // Füge dem Button einen Klick-Event hinzu
                 dotsButton.addEventListener('click', function() {
-                    console.log('Button wurde geklickt.');
+               //     console.log('Button wurde geklickt.');
 
                     // Zeige das Popup an
                     showPopup();
