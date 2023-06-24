@@ -1,13 +1,13 @@
 // ==UserScript==
 // @name         LSS-List Navigation
 // @namespace    https://www.leitstellenspiel.de/toplist
-// @version      1.1
+// @version      1.2
 // @description  Add custom page navigation to List websites in LSS
 // @author       MissSobol
 // @match        https://www.leitstellenspiel.de/toplist*
 // @match        https://www.leitstellenspiel.de/alliances*
-// @match        https://www.leitstellenspiel.de/vehicle_graphics
-// @match        https://www.leitstellenspiel.de/mission_graphics
+// @match        https://www.leitstellenspiel.de/vehicle_graphics*
+// @match        https://www.leitstellenspiel.de/mission_graphics*
 // @grant        GM_addStyle
 // ==/UserScript==
 
@@ -126,26 +126,40 @@
         }
     `);
 
+    // Funktion zum Ändern des Mauszeigers
+    function changeCursorOnHover(event) {
+        const button = event.target;
+        if (button.classList.contains('disabled')) {
+            button.style.cursor = 'not-allowed';
+        } else {
+            button.style.cursor = 'pointer';
+        }
+    }
+
     // Finde das Element für die Seitennavigation
     const currentPage = window.location.href;
     const paginationElement = document.querySelector('.pagination.pagination');
     if (paginationElement) {
-       // console.log('Seitennavigationselement gefunden:', paginationElement);
+        console.log('Seitennavigationselement gefunden:', paginationElement);
 
         // Finde den Button mit den 3 Punkten basierend auf dem Textinhalt
         const dotsButtons = paginationElement.querySelectorAll('li');
         dotsButtons.forEach(function(dotsButton) {
             const span = dotsButton.querySelector('span');
             if (span && span.textContent === '…') {
-             //   console.log('Button mit den 3 Punkten gefunden:', dotsButton);
+                console.log('Button mit den 3 Punkten gefunden:', dotsButton);
 
                 // Füge dem Button einen Klick-Event hinzu
                 dotsButton.addEventListener('click', function() {
-               //     console.log('Button wurde geklickt.');
+                    console.log('Button wurde geklickt.');
 
                     // Zeige das Popup an
                     showPopup();
                 });
+
+                // Ändere den Pointer beim Hover über den Button
+                dotsButton.addEventListener('mouseover', changeCursorOnHover);
+                dotsButton.addEventListener('mouseout', changeCursorOnHover);
             }
         });
     }
